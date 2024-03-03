@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FoodTracker.Model
 {
-    public class BasicIngredient : IIngredient
+    public class FrozenIngredient : IIngredient
     {
         // Dictionary with properties of the ingredient
         private Dictionary<string, List<string>> properties = null;
@@ -43,7 +43,7 @@ namespace FoodTracker.Model
             else
             {
                 List<string> lowerStrings = new List<string>();
-                foreach(string value in values)
+                foreach (string value in values)
                 {
                     lowerStrings.Add(value.ToLower());
                 }
@@ -72,7 +72,7 @@ namespace FoodTracker.Model
             }
             return false;
         }
-        public Object GetProperty(string key)
+        public object GetProperty(string key)
         {
             if (Properties.ContainsKey(key))
             {

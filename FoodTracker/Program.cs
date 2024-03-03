@@ -7,10 +7,13 @@
         
         // Factory
             // Factory for creating ingredients
-
-        // Observer
+            // The BasicIngredientFactory produces fresh, frozen and dry ingredients
 
         // Decorator
+            // PriceDecorator
+
+        // Observer
+            //
 
         // Strategy
             // Merge Sort or Quick Sort
