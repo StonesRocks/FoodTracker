@@ -7,11 +7,11 @@ using FoodTracker.Interface;
 
 namespace FoodTracker.Model
 {
-    public sealed class ManualInput : IProductInput
+    public sealed class IngredientInputManual : IIngredientInput
     {
-        private static ManualInput instance = null;
+        private static IngredientInputManual instance = null;
         
-        private ManualInput()
+        public IngredientInputManual()
         {
         }
         public IIngredient GetProduct()
@@ -19,11 +19,11 @@ namespace FoodTracker.Model
             throw new NotImplementedException();
         }
 
-        public static ManualInput GetInstance()
+        public static IngredientInputManual GetInstance()
         {
             if (instance == null)
             {
-                instance = new ManualInput();
+                instance = new IngredientInputManual();
             }
             return instance;
         }

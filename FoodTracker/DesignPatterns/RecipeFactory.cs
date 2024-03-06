@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FoodTracker.Interface;
-using FoodTracker.Model;
 
 namespace FoodTracker.DesignPatterns
 {
-    public class BasicIngredientFactory : IIngredientFactory
+    public class RecipeFactory : IIngredientFactory
     {
-        public IIngredient BuildIngredient()
+        public IIngredient BuildObject()
         {
             throw new NotImplementedException();
         }

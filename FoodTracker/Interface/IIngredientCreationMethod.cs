@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace FoodTracker.Interface
 {
-    public interface IIngredientFactory
+    public interface IIngredientCreationMethod
     {
-        // Factory method to create an ingredient
-        IIngredient BuildObject();
+
     }
 }
