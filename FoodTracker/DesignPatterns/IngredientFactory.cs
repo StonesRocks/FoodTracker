@@ -13,18 +13,46 @@ namespace FoodTracker.DesignPatterns
         // We have different methods for different types of inputs when creating ingredients
         // The input type is the key, and the method is the value. we can expand this to include inputs later
 
-        private Dictionary<IIngredientInput, IIngredientCreationMethod> methodDict = null;
-
-        public IngredientFactory(Dictionary<IIngredientInput, IIngredientCreationMethod> _methodDict)
+        private static IngredientFactory instance;
+        private static readonly object padlock = new object();
+        public static IngredientFactory Instance
         {
-            if (methodDict == null)
+            get
             {
-                methodDict = _methodDict;
+                if (instance == null)
+                {
+                    lock (padlock)
+                    {
+                        if (instance == null)
+                        {
+                            instance = new IngredientFactory();
+                        }
+                    }
+                }
+                return instance;
+            }
+        }
+        private Dictionary<string, IIngredientInput> CreationMethod { get; set;}
+        private IngredientFactory()
+        {
+        }
+
+        public bool AddInputMethod(string name, IIngredientInput input)
+        {
+            if (CreationMethod.ContainsKey(name))
+            {
+                return false;
+            }
+            else
+            {
+                CreationMethod.Add(name, input);
+                return true;
             }
         }
 
         public IIngredient BuildObject()
         {
+
             throw new NotImplementedException();
         }
 

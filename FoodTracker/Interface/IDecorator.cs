@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace FoodTracker.Interface
 {
-    public interface IRecipeCreationMethod
+    public interface IDecorator
     {
+        // This interface is used to add properties to intredients.
+        void Decorate(IIngredient ingredient);
     }
 }

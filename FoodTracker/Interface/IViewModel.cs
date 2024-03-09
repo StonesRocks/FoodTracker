@@ -31,6 +31,6 @@ namespace FoodTracker.Interface
         // Display settings
         public void DisplaySettings();
 
-
+        public void AddIngredient();
     }
 }

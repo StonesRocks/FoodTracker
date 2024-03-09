@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using FoodTracker.Interface;
 
-namespace FoodTracker.View
+namespace FoodTracker.DesignPatterns
 {
-    public class ViewClass : IViewModel
+    public class ViewModel : IViewModel
     {
+
         public void DisplayIngredients()
         {
             // Display ingredients. Allow sorting of ingredients by name, category, expiration date, etc.
@@ -46,6 +47,11 @@ namespace FoodTracker.View
         public void DisplaySettings()
         {
             // Display settings
+            throw new NotImplementedException();
+        }
+
+        public void AddIngredient()
+        {
             throw new NotImplementedException();
         }
     }

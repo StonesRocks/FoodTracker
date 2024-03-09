@@ -10,14 +10,14 @@ namespace FoodTracker.Model
     public class FrozenIngredient : IIngredient
     {
         // Dictionary with properties of the ingredient
-        private Dictionary<string, List<string>> properties = null;
-        public Dictionary<string, List<string>> Properties
+        private Dictionary<string, dynamic> properties = null;
+        public Dictionary<string, dynamic> Properties
         {
             get
             {
                 if (properties == null)
                 {
-                    properties = new Dictionary<string, List<string>>();
+                    properties = new Dictionary<string, dynamic>();
                 }
                 return properties;
             }

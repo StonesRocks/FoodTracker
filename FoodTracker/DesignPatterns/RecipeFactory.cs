@@ -7,9 +7,9 @@ using FoodTracker.Interface;
 
 namespace FoodTracker.DesignPatterns
 {
-    public class RecipeFactory : IIngredientFactory
+    public class RecipeFactory : IRecipeFactory
     {
-        public IIngredient BuildObject()
+        public IRecipe BuildObject()
         {
             throw new NotImplementedException();
         }

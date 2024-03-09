@@ -7,10 +7,10 @@ using FoodTracker.Interface;
 
 namespace FoodTracker.DesignPatterns
 {
-    public abstract class PriceDecorator
+    public abstract class PriceDecorator : IDecorator
     {
-        protected readonly IIngredient ingredient;
-        public PriceDecorator(IIngredient ingredient)
+        private IIngredient ingredient;
+        public void Decorate(IIngredient ingredient)
         {
             this.ingredient = ingredient;
         }

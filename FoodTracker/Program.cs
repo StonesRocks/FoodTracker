@@ -27,10 +27,13 @@
             // Merge Sort or Quick Sort
             // We might consider using different sorting algorithms depending on the size. We can use the strategy pattern to switch between different sorting algorithms
 
+        // Plan
+        // 
+
+
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, World!");
-
         }
     }
 }

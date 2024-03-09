@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace FoodTracker.Interface
 {
-    public interface IIngredientCreationMethod
+    public interface ICommand
     {
-
+        public void Execute();
     }
 }
