@@ -36,6 +36,15 @@ namespace FoodTracker.DesignPatterns
         private IngredientFactory()
         {
         }
+        public List<string> GetInputMethods()
+        {
+            List<string> inputMethods = new List<string>();
+            foreach (var method in CreationMethod)
+            {
+                inputMethods.Add(method.Key);
+            }
+            return inputMethods;
+        }
 
         public bool AddInputMethod(string name, IIngredientInput input)
         {
@@ -52,7 +61,6 @@ namespace FoodTracker.DesignPatterns
 
         public IIngredient BuildObject()
         {
-
             throw new NotImplementedException();
         }
 

@@ -9,61 +9,46 @@ namespace FoodTracker
 {
     public class View
     {
+        private Dictionary<string, dynamic> managersDict = new Dictionary<string, dynamic>();
+        public View()
+        {
+
+        }
+
+        public void AddManager(string managerName, dynamic manager)
+        {
+            managersDict.Add(managerName, manager);
+        }
+
         public void DisplayMenu()
         {
-            while (true)
+            var mainMenu = new List<string>();
+            foreach (var manager in managersDict)
             {
-
+                mainMenu.Add(manager.Key);
             }
-        }
-        public void DisplayAndExecuteCommands(List<ICommand> commands)
-        {
-            DisplayOptions(commands);
-
-            while (true)
-            {
-                string input = Console.ReadLine().Trim();
-
-                if (input.ToLower() == "exit")
-                {
-                    return; // User chose to exit
-                }
-
-                if (int.TryParse(input, out int choice))
-                {
-                    if (choice >= 0 && choice < commands.Count)
-                    {
-                        commands[choice].Execute();
-                    }
-                    else
-                    {
-                        Console.WriteLine("Invalid choice. Please enter a valid option or 'exit' to quit.");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Invalid choice. Please enter a valid option or 'exit' to quit.");
-                }
-            }
+            mainMenu.Add("Exit");
         }
 
-        private void DisplayOptions(List<ICommand> commands)
+        private void DisplaySubMenu(string managerName)
         {
-            Console.WriteLine("Choose an option:");
-            for (int i = 0; i < commands.Count; i++)
+            var subMenu = new List<string>();
+            var manager = managersDict[managerName];
+            var methods = manager.GetType().GetMethods();
+            foreach (var method in methods)
             {
-                Console.WriteLine($"{i}. {commands[i].ToString()}");
+                subMenu.Add(method.Name);
             }
+            subMenu.Add("Back");
+            DisplayList(subMenu);
         }
 
-        private bool exit(string input)
+        private void DisplayList(List<string> list)
         {
-            string[] strings = { "exit", "quit", "q" };
-            if (strings.Contains(input.ToLower()))
+            for (int i = 0; i < list.Count; i++)
             {
-                return true;
+                Console.WriteLine($"[{i}]. {list[i]}");
             }
-            return false;
         }
     }
 }
