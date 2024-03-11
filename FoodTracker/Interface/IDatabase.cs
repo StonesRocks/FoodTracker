@@ -10,5 +10,8 @@ namespace FoodTracker.Interface
     {
         // This is the interface that will be used to save and load the model to and from the database
         // Start with JSON and expand to mySQL
+
+        void Save();
+        void Load();
     }
 }

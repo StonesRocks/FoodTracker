@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace FoodTracker.Interface
 {
-    public interface IManager<T> where T : class
+    public interface IManager
     {
-        T Instance { get; }
+        object Instance { get; }
     }
 }

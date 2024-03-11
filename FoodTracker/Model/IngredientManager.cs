@@ -17,7 +17,7 @@ namespace FoodTracker.Model
 
         private IIngredientFactory ingredientFactory = IngredientFactory.Instance;
 
-        public IngredientManager Instance
+        public static IngredientManager Instance
         {
             get
             {
@@ -35,7 +35,7 @@ namespace FoodTracker.Model
             }
         }
 
-        public IngredientManager()
+        private IngredientManager()
         {
             functionDict["Add Ingredient"] = AddIngredient;
             functionDict["Remove Ingredient"] = RemoveIngredient;
@@ -48,6 +48,12 @@ namespace FoodTracker.Model
         {
             return functionDict.Keys.ToList();
         }
+
+        public void UseMethod(string methodName)
+        {
+            functionDict[methodName]();
+        }
+
         public void AddIngredient()
         {
 
