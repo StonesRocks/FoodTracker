@@ -19,7 +19,7 @@ namespace FoodTracker
         public View()
         {
             //Initialize the managers
-            AddManager("IngredientManager", IngredientManager.Instance);
+            AddManager("Ingredient Manager", IngredientManager.Instance);
 
 
             while(_running)

@@ -11,7 +11,9 @@ namespace FoodTracker.Interface
         // This is the interface that will be used to save and load the model to and from the database
         // Start with JSON and expand to mySQL
 
-        void Save();
-        void Load();
+        // Nullable parameters allows us to implement either a sophisticated database implemnentation to fetch specific data
+        // or a simpler implementation to fetch all data and filter it in the model
+        void Save(List<string>? parameters);
+        void Load(List<string>? parameters);
     }
 }

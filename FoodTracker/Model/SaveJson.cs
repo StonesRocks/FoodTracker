@@ -10,7 +10,15 @@ namespace FoodTracker.Model
 {
     public class SaveJson : IDatabase
     {
+        private string _folderPath = "jsonFolder";
+        private List<IIngredient> ingredients = new List<IIngredient>();
+        private List<IRecipe> recipes = new List<IRecipe>();
 
+
+        public SaveJson()
+        {
+
+        }
 
         public bool FilePathExist(string filePath)
         {
@@ -46,14 +54,22 @@ namespace FoodTracker.Model
             }
         }
 
-        public void Save()
+        public void Save(List<string>? parameters)
         {
-            throw new NotImplementedException();
+            ExportToJson(ingredients, "ingredients", _folderPath);
+            ExportToJson(recipes, "recipes", _folderPath);
         }
 
-        public void Load()
+        public void Load(List<string>? parameters)
         {
-            throw new NotImplementedException();
+            if (File.Exists($"{_folderPath}/ingredients.json"))
+            {
+                ingredients = ImportFromJson<List<IIngredient>>($"{_folderPath}/ingredients.json");
+            }
+            if (File.Exists($"{_folderPath}/recipes.json"))
+            {
+                recipes = ImportFromJson<List<IRecipe>>($"{_folderPath}/recipes.json");
+            }
         }
     }
 }
