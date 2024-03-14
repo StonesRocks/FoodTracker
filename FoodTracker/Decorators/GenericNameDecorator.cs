@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FoodTracker.Interface
+namespace FoodTracker.Decorators
 {
-    public interface IManager
+    internal class GenericNameDecorator
     {
-        object Instance { get; }
     }
 }

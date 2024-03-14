@@ -13,7 +13,11 @@ namespace FoodTracker.Interface
 
         // Nullable parameters allows us to implement either a sophisticated database implemnentation to fetch specific data
         // or a simpler implementation to fetch all data and filter it in the model
-        void Save(List<string>? parameters);
-        void Load(List<string>? parameters);
+
+        List<IIngredient> LoadStorage();
+        void SaveStorage(List<IIngredient> storage);
+
+        IIngredient GetIngredient(IIngredient ingredient);
+        void SaveIngredient(IIngredient ingredient);
     }
 }

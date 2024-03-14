@@ -19,6 +19,31 @@ namespace FoodTracker.Model
         {
 
         }
+        public List<IIngredient> LoadStorage()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SaveStorage(List<IIngredient> storage)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IIngredient GetIngredient(IIngredient ingredient)
+        {
+            throw new NotImplementedException();
+            // I want to sort the ingredient by different parameters depending on what available information we have
+            // If it has EAN13 , we can search for that
+            // If it has a product name, we can search for that
+            // If it has a generic name, we can search for that
+            // If it has a category, we can search for that
+
+        }
+
+        public void SaveIngredient(IIngredient ingredient)
+        {
+            throw new NotImplementedException();
+        }
 
         public bool FilePathExist(string filePath)
         {

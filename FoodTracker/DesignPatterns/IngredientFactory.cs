@@ -10,53 +10,62 @@ namespace FoodTracker.DesignPatterns
 {
     public class IngredientFactory : IIngredientFactory
     {
-        // We have different methods for different types of inputs when creating ingredients
-        // The input type is the key, and the method is the value. we can expand this to include inputs later
+        // Lets first get the IngredientInputMethod
+            // There is a method to add an input method
+            // There is a method to use a specified input method
 
-        private static IngredientFactory instance;
-        private static readonly object padlock = new object();
-        public static IngredientFactory Instance
+        private IViewModel viewModel;
+
+        // Input dictionary
+        private List<IIngredientInput> IngredientInputMethod { get; set; } = new List<IIngredientInput>();
+        public IngredientFactory(IViewModel viewModel)
         {
-            get
-            {
-                if (instance == null)
-                {
-                    lock (padlock)
-                    {
-                        if (instance == null)
-                        {
-                            instance = new IngredientFactory();
-                        }
-                    }
-                }
-                return instance;
-            }
+            this.viewModel = viewModel;
         }
-        private Dictionary<string, IIngredientInput> CreationMethod { get; set;}
-        private IngredientFactory()
-        {
-        }
-        public List<string> GetInputMethods()
+        public List<string> GetOptions()
         {
             List<string> inputMethods = new List<string>();
-            foreach (var method in CreationMethod)
+            foreach (var method in IngredientInputMethod)
             {
-                inputMethods.Add(method.Key);
+                inputMethods.Add(method.ToString());
             }
             return inputMethods;
         }
 
-        public bool AddInputMethod(string name, IIngredientInput input)
+        // Method to add an input method
+        public bool AddInputMethod(IIngredientInput input)
         {
-            if (CreationMethod.ContainsKey(name))
+            if (IngredientInputMethod.Contains(input))
             {
                 return false;
             }
             else
             {
-                CreationMethod.Add(name, input);
+                IngredientInputMethod.Add(input);
                 return true;
             }
+        }
+
+        public IIngredient UseInputMethod(int input)
+        {
+            if (input < IngredientInputMethod.Count)
+            {
+                return IngredientInputMethod[input].GetProduct();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public List<string> GetMethods()
+        {
+            List<string> methods = new List<string>();
+            foreach (var method in IngredientInputMethod)
+            {
+                methods.Add(method.ToString());
+            }
+            return methods;
         }
 
         public IIngredient BuildObject()

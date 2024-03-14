@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FoodTracker.Interface;
 
-namespace FoodTracker.DesignPatterns
+namespace FoodTracker.Decorators
 {
     public abstract class PriceDecorator : IDecorator
     {

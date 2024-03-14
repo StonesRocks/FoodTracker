@@ -3,56 +3,125 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FoodTracker.Commands;
 using FoodTracker.Interface;
+using FoodTracker.Model;
 
 namespace FoodTracker.DesignPatterns
 {
     public class ViewModel : IViewModel
     {
+        private View view = new View();
+        private List<dynamic> ManagerList = new List<dynamic>();
 
-        public void DisplayIngredients()
+        private bool _running = true;
+
+        public ViewModel()
         {
-            // Display ingredients. Allow sorting of ingredients by name, category, expiration date, etc.
-            throw new NotImplementedException();
+            // Initialize the managers and adds them to the dictionary
+            var ingredientManager = new IngredientManager(this);
+            ingredientManager.AddIngredientFactory(new IngredientFactory(this));
+            ingredientManager.AddFactoryMethod(new IngredientInputManual(this));
+            AddManager(ingredientManager);
+
+            Run();
         }
 
-        public void DisplayRecipes()
+        public int RequestUserInput(List<string> options)
         {
-            // Display recipes. Allow sorting of recipes by name, category, etc.
-            // Display available recipes depending on available ingredients
+            view.DisplayOptions(options);
+            return GetChoiceInput(options);
         }
 
-
-        public void DisplayShoppingList()
+        private void Run()
         {
-            // Display shopping list
-            throw new NotImplementedException();
+            while (_running)
+            {
+                view.DisplayOptions(GetMainMenu());
+                var userInput = GetChoiceInput(GetMainMenu());
+                if (userInput == 0)
+                {
+                    _running = false;
+                    Console.WriteLine("Exiting Program");
+                    continue;
+                }
+                userInput--;
+                var SubOptions = ManagerList[userInput].GetMethods();
+                view.DisplayOptions(SubOptions);
+                var subInput = GetChoiceInput(SubOptions);
+                if (subInput == SubOptions.Count - 1)
+                {
+                    continue;
+                }
+                ManagerList[userInput].UseMethod(SubOptions[subInput]);
+            }
         }
 
-
-        public void DisplayMealPlan()
+        public void DisplayOptions(List<string> options)
         {
-            // Display meal plan
-            throw new NotImplementedException();
+            view.DisplayOptions(options);
+        }
+        public void DisplayMessage(string message)
+        {
+            view.DisplayMessage(message);
         }
 
-
-        public void DisplayStatistics()
+        public string GetStringInput(string message)
         {
-            // Display statistics
-            throw new NotImplementedException();
+            view.DisplayMessage(message);
+            return Console.ReadLine();
         }
 
-
-        public void DisplaySettings()
+        // Provides a method that takes user input and returns the index of the selected option
+        public int GetChoiceInput(List<string> validOptions)
         {
-            // Display settings
-            throw new NotImplementedException();
+            int answer = 0;
+            bool run = true;
+            if (validOptions.Count == 0)
+            {
+                return answer;
+            }
+            while (run)
+            {
+                var userInput = Console.ReadLine();
+                if (int.TryParse(userInput, out int result))
+                {
+                    if (result >= 0 && result < validOptions.Count)
+                    {
+                        answer = result;
+                        run = false;
+                        continue;
+                    }
+                }
+                else if (validOptions.Contains(userInput.ToLower()))
+                {
+                    answer = validOptions.IndexOf(userInput);
+                    run = false;
+                    continue;
+                }
+                view.DisplayMessage("Invalid input. Please try again.");
+            }
+            return answer;
         }
 
-        public void AddIngredient()
+        // Allows the system to dynamically add additional managers for future functionality
+        public void AddManager(dynamic manager)
         {
-            throw new NotImplementedException();
+            ManagerList.Add(manager);
         }
+
+        // Function that gets the main menu for this view
+        private List<string> GetMainMenu()
+        {
+            var mainMenu = new List<string>() { "Exit" };
+            foreach (var manager in ManagerList)
+            {
+                mainMenu.Add(manager.ToString());
+            }
+
+            return mainMenu;
+        }
+
+        
     }
 }

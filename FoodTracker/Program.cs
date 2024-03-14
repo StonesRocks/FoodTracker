@@ -1,4 +1,7 @@
-﻿namespace FoodTracker
+﻿using FoodTracker.Interface;
+using FoodTracker.DesignPatterns;
+
+namespace FoodTracker
 {
     internal class Program
     {
@@ -20,6 +23,8 @@
             // We use a the decorator abstract class to create Decorators that manipulate these properties and we can add more decorators later on
                 // PriceDecorator takes the ingredient material measurement and price to calculate the price of the ingredient per material
 
+        // Flyweight
+            // We define the ingredient in the ingredient manager and when used in recipe or storage we simply reference the ingredient instead of creating a new instance
         // Observer
             // 
 
@@ -34,7 +39,7 @@
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, World!");
-            View view = new View();
+            IViewModel viewModel = new ViewModel();
         }
     }
 }

@@ -10,41 +10,53 @@ namespace FoodTracker.Model
 {
     public class IngredientManager
     {
-        private static IngredientManager instance = null;
-        private static readonly object padlock = new object();
+
+
+        // Database should contain the IIngredients recorded
+        // IngredientManager should be able to add, remove, edit and view ingredients
+
 
         private Dictionary<string, Action> functionDict = new Dictionary<string, Action>();
 
-        private IIngredientFactory ingredientFactory = IngredientFactory.Instance;
+        private Dictionary<int, IIngredient> ingredientDict = new Dictionary<int, IIngredient>();
 
-        public static IngredientManager Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    lock (padlock)
-                    {
-                        if (instance == null)
-                        {
-                            instance = new IngredientManager();
-                        }
-                    }
-                }
-                return instance;
-            }
-        }
+        private IViewModel viewModel;
+        public IIngredientFactory ingredientFactory;
 
-        private IngredientManager()
-        {
+
+        public IngredientManager(IViewModel viewModel)
+        {   
+            this.viewModel = (ViewModel)viewModel;
+
+            functionDict["Back"] = () => { };
             functionDict["Add Ingredient"] = AddIngredient;
             functionDict["Remove Ingredient"] = RemoveIngredient;
             functionDict["Edit Ingredient"] = EditIngredient;
             functionDict["View Ingredient"] = ViewIngredient;
+
+        }
+
+        public List<string> GetMethods()
+        {
+            return functionDict.Keys.ToList();
+        }
+        public void AddFactoryMethod(IIngredientInput process)
+        {
+            ingredientFactory.AddInputMethod(process);
+        }
+
+        public void AddIngredientFactory(IIngredientFactory ingredientFactory)
+        {
+            this.ingredientFactory = ingredientFactory;
+        }
+
+        public override string ToString()
+        {
+            return "Ingredient Manager";
         }
 
 
-        public List<string> GetMethods()
+        public List<string> GetOptions()
         {
             return functionDict.Keys.ToList();
         }
@@ -56,6 +68,19 @@ namespace FoodTracker.Model
 
         public void AddIngredient()
         {
+
+            // We run the Factory and display the options
+            viewModel.DisplayOptions(ingredientFactory.GetOptions());
+            // We get the input from the user
+            var Input = viewModel.GetChoiceInput(ingredientFactory.GetOptions());
+            // We use the input method to activate the method to create the ingredient
+            var Ingredient = ingredientFactory.UseInputMethod(Input);
+
+            if (Ingredient != null)
+            {
+                // Add the ingredient to the list
+                ingredientDict.Add(int.MinValue, Ingredient);
+            }
 
         }
         public void RemoveIngredient()

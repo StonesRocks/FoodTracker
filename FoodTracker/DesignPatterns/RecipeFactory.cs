@@ -13,5 +13,10 @@ namespace FoodTracker.DesignPatterns
         {
             throw new NotImplementedException();
         }
+
+        public dynamic GetInputMethods()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

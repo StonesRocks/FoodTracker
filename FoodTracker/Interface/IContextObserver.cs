@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace FoodTracker.Interface
 {
-    public interface IRecipeFactory
+    public interface IContextObserver
     {
-        public dynamic GetInputMethods();
-        public IRecipe BuildObject();
+        void ChangeContext(object context);
     }
 }

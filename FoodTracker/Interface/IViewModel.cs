@@ -8,29 +8,11 @@ namespace FoodTracker.Interface
 {
     public interface IViewModel
     {
-        // This is the interface that will be used to display the model to the view
-            // We start with a console view and expand to a GUI
-        
+        void DisplayOptions(List<string> options);
 
-        // Display ingredients. Allow sorting of ingredients by name, category, expiration date, etc.
-        public void DisplayIngredients();
+        void DisplayMessage(string message);
 
-        // Display recipes. Allow sorting of recipes by name, category, etc.
-            // Display available recipes depending on available ingredients
-        public void DisplayRecipes();
-
-        // Display shopping list
-        public void DisplayShoppingList();
-
-        // Display meal plan
-        public void DisplayMealPlan();
-
-        // Display statistics
-        public void DisplayStatistics();
-
-        // Display settings
-        public void DisplaySettings();
-
-        public void AddIngredient();
+        string GetStringInput(string message);
+        int GetChoiceInput(List<string> options);
     }
 }
