@@ -288,13 +288,14 @@ namespace FoodTracker.Model
         }
         public void MergeSort(List<string> list, int left, int right)
         {
-            // recursive function that splits the list into smaller parts
+            // recursive function that splits until the size of left and right is 1 or 0
             if (left < right)
             {
                 int mid = (left + right) / 2;
 
                 MergeSort(list, left, mid);
                 MergeSort(list, mid + 1, right);
+                // this remains incomplete until the parts are 0 or 1, it then starts merging from the newest to the oldest
                 Merge(list, left, mid, right);
             }
         }
@@ -316,37 +317,40 @@ namespace FoodTracker.Model
                 rightArray.Add(list[mid + 1 + j]);
             }
 
-            int k = left;
-            int i1 = 0;
-            int i2 = 0;
+            // the spot that we place the smallest value
+            int mergedIndex = left;
+            // index of leftArray
+            int indexLeft = 0;
+            // index of rightArray
+            int indexRight = 0;
 
-            while (i1 < leftsize && i2 < rightsize)
+            while (indexLeft < leftsize && indexRight < rightsize)
             {
-                if (int.Parse(leftArray[i1]) <= int.Parse(rightArray[i2]))
+                if (int.Parse(leftArray[indexLeft]) <= int.Parse(rightArray[indexRight]))
                 {
-                    list[k] = leftArray[i1];
-                    i1++;
+                    list[mergedIndex] = leftArray[indexLeft];
+                    indexLeft++;
                 }
                 else
                 {
-                    list[k] = rightArray[i2];
-                    i2++;
+                    list[mergedIndex] = rightArray[indexRight];
+                    indexRight++;
                 }
-                k++;
+                mergedIndex++;
             }
-
-            while (i1 < leftsize)
+            // if right side runs out then add remaining left array
+            while (indexLeft < leftsize)
             {
-                list[k] = leftArray[i1];
-                i1++;
-                k++;
+                list[mergedIndex] = leftArray[indexLeft];
+                indexLeft++;
+                mergedIndex++;
             }
-
-            while (i2 < rightsize)
+            // if left side runs out then add remaining right array
+            while (indexRight < rightsize)
             {
-                list[k] = rightArray[i2];
-                i2++;
-                k++;
+                list[mergedIndex] = rightArray[indexRight];
+                indexRight++;
+                mergedIndex++;
             }
         }
 
