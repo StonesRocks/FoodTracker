@@ -20,7 +20,7 @@ namespace FoodTracker.Decorators
             {
                 throw new ArgumentException("Property must be a string");
             }
-            ingredient.AddProperty("Id", property);
+            ingredient.AddProperty("id", property.ToString());
         }
     }
 }

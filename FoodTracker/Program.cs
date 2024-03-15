@@ -6,42 +6,36 @@ namespace FoodTracker
 {
     internal class Program
     {
-        // Singleton
-            // Input methods, such as ManualInput, BarcodeInput, and ImageInput
-                // There's no need to have multiple instances of these classes, so they are singletons so that the program can access the same instance of the class from anywhere in the program
-        
-        // Factory
-            // Factory for creating ingredients and recipes
-            // The IngredientFactory produces fresh, frozen and dry ingredients
-                // We have a factory interface and a an ingredient interface
-                // We can create a factory for ingredients and expand on it later on
-                    // IngredientFactory is the main factory as of now and it procudes fresh, frozen and dry ingredients objects
-            // RecipeFactory produces recipes
-                // RecipeFactory create objects using IRecipe interface, provides an interface for recipes and enables us to get recipes from the database or manually create them.
+        // MVVM
+            // The overarching architecture uses the MVVM pattern, this allows us to update the view from console to maybe WPF later on
 
+        // Singleton
+            // Our database is currently only a json file manager, therefore we make it a singleton so we can communicate with the database from different places 
+        
+        // Abstract Factory
+            // The factories are able to use different input methods to create the ingredients as well as different decorators to add properties to the ingredients
+        
         // Decorator
-            // Ingredients have a dictionary with property name as key and the value contains the property information
-            // We use a the decorator abstract class to create Decorators that manipulate these properties and we can add more decorators later on
-                // PriceDecorator takes the ingredient material measurement and price to calculate the price of the ingredient per material
+            // The decorator add properties to the ingredients, this makes it easy to add new properties to the ingredients without changing the ingredient class
+            // It also makes it easy to create new properties, such as price, expiration date etc
 
         // Flyweight
-            // We define the ingredient in the ingredient manager and when used in recipe or storage we simply reference the ingredient instead of creating a new instance
+            // Our storage only needs the id of the products because we can reference the rest of the product from the database
+            
+        // Command
+            // I apply the command pattern in my view which allows my program to easily execute UI commands
+            // My viewmodel uses these commands to display options and messages
+
         // Observer
-            // 
+            // The Commands are actually composite of command and observer because they use observer to change the context of the command
 
-        // Strategy
-            // Merge Sort or Quick Sort
-            // We might consider using different sorting algorithms depending on the size. We can use the strategy pattern to switch between different sorting algorithms
 
-        // Plan
-        // 
 
 
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, World!");
             IDatabase database = SaveJson.Instance;
-            TestAutoFiller testAutoFiller = new TestAutoFiller(database);
             IViewModel viewModel = new ViewModel();
         }
     }

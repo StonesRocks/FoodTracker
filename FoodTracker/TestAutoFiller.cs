@@ -44,8 +44,7 @@ namespace FoodTracker
             {
                 database.AddIngredientToDatabase(ingredient);
             }
-
-            //database.AddIngredientToDatabase();
+            database.Save();
         }
     }
 }

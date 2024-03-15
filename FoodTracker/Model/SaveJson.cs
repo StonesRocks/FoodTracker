@@ -65,6 +65,10 @@ namespace FoodTracker.Model
                     this.ingredients.Add(ingredient);
                 }
             }
+            else
+            {
+                new TestAutoFiller(this);
+            }
             if (FilePathExist($"{_folderPath}/storage.json"))
             {
                 storage = ImportFromJson<List<string>>($"{_folderPath}/storage.json");
@@ -107,7 +111,7 @@ namespace FoodTracker.Model
             if (ingredient.GetProperty("id") != null)
             {
                 // Check if the id is unique
-                int id = ingredient.GetProperty("id");
+                string id = ingredient.GetProperty("id");
                 if (ingredients.Any(x => x.GetProperty("id") == id))
                 {
                     throw new IngredientNotUniqueException(ingredients.Find(x => x.GetProperty("id") == id));
@@ -227,8 +231,124 @@ namespace FoodTracker.Model
         public void Save()
         {
             ExportToJson(ingredients, "ingredients", _folderPath);
+            SortStorage();
+
             ExportToJson(storage, "storage", _folderPath);
             ExportToJson(idCounter, "idCounter", _folderPath);
         }
+
+        private void SortStorage()
+        {
+            int dataSize = storage.Count;
+
+            // We add two different sorting algorithms, for individual users its going to use quicksort but if any organisation uses this it will use mergesort for faster sorting
+            if (dataSize <= 1000)
+            {
+                QuickSort(storage, 0, storage.Count - 1);
+            }
+            else
+            {
+                MergeSort(storage, 0, storage.Count - 1);
+            }
+        }
+
+        public void QuickSort(List<string> list, int left, int right)
+        {
+            if (left < right)
+            {
+                int pivotIndex = Partition(list, left, right);
+                // recursively sort the two partitions
+                QuickSort(list, left, pivotIndex - 1);
+                QuickSort(list, pivotIndex + 1, right);
+            }
+        }
+
+        private int Partition(List<string> list, int left, int right)
+        {
+            string pivot = list[right];
+            int i = left - 1;
+
+            for (int j = left; j < right; j++)
+            {
+                if (int.Parse(list[j]) <= int.Parse(pivot))
+                {
+                    i++;
+                    Swap(list, i, j);
+                }
+            }
+
+            Swap(list, i + 1, right);
+            return i + 1;
+        }
+        private void Swap(List<string> list, int i, int j)
+        {
+            string temp = list[i];
+            list[i] = list[j];
+            list[j] = temp;
+        }
+        public void MergeSort(List<string> list, int left, int right)
+        {
+            // recursive function that splits the list into smaller parts
+            if (left < right)
+            {
+                int mid = (left + right) / 2;
+
+                MergeSort(list, left, mid);
+                MergeSort(list, mid + 1, right);
+                Merge(list, left, mid, right);
+            }
+        }
+        private void Merge(List<string> list, int left, int mid, int right)
+        {
+            int leftsize = mid - left + 1;
+            int rightsize = right - mid;
+
+            List<string> leftArray = new List<string>();
+            List<string> rightArray = new List<string>();
+
+            for (int i = 0; i < leftsize; ++i)
+            {
+                leftArray.Add(list[left + i]);
+            }
+
+            for (int j = 0; j < rightsize; ++j)
+            {
+                rightArray.Add(list[mid + 1 + j]);
+            }
+
+            int k = left;
+            int i1 = 0;
+            int i2 = 0;
+
+            while (i1 < leftsize && i2 < rightsize)
+            {
+                if (int.Parse(leftArray[i1]) <= int.Parse(rightArray[i2]))
+                {
+                    list[k] = leftArray[i1];
+                    i1++;
+                }
+                else
+                {
+                    list[k] = rightArray[i2];
+                    i2++;
+                }
+                k++;
+            }
+
+            while (i1 < leftsize)
+            {
+                list[k] = leftArray[i1];
+                i1++;
+                k++;
+            }
+
+            while (i2 < rightsize)
+            {
+                list[k] = rightArray[i2];
+                i2++;
+                k++;
+            }
+        }
+
     }
 }
