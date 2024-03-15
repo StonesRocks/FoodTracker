@@ -7,17 +7,14 @@ using System.Threading.Tasks;
 
 namespace FoodTracker.Model
 {
-    public class Ingredient_EAN13 : IIngredient
+    public class BasicIngredient : IIngredient
     {
         // Dictionary with properties of the ingredient
         private Dictionary<string, dynamic> properties = null;
 
-        // This class follows the EAN13 standard for barcodes
-        public Ingredient_EAN13(string ean13)
+        public BasicIngredient()
         {
-            AddProperty("EAN13", ean13);
-            AddProperty("ManufacturerCode", ean13.Substring(0, 6));
-            AddProperty("ProductCode", ean13.Substring(7, 6));
+
         }
 
         public Dictionary<string, dynamic> Properties

@@ -1,5 +1,6 @@
 ﻿using FoodTracker.Interface;
 using FoodTracker.DesignPatterns;
+using FoodTracker.Model;
 
 namespace FoodTracker
 {
@@ -39,6 +40,8 @@ namespace FoodTracker
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, World!");
+            IDatabase database = SaveJson.Instance;
+            TestAutoFiller testAutoFiller = new TestAutoFiller(database);
             IViewModel viewModel = new ViewModel();
         }
     }

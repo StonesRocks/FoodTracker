@@ -1,16 +1,18 @@
-﻿using FoodTracker.Interface;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FoodTracker.Interface;
+using FoodTracker.Model;
 
 namespace FoodTracker.Decorators
 {
-    public class GenericNameDecorator : IDecorator
+    public class IdDecorator : IDecorator
     {
-        public string description { get; } = "Please provide a genereic name for the product";
-        public string name { get; } = "Generic Name";
+        public string description { get; } = "Please provide an id for the product";
+
+        public string name { get; } = "Id";
 
         public void Decorate(IIngredient ingredient, object property)
         {
@@ -18,7 +20,7 @@ namespace FoodTracker.Decorators
             {
                 throw new ArgumentException("Property must be a string");
             }
-            ingredient.AddProperty("GenericName", property);
+            ingredient.AddProperty("Id", property);
         }
     }
 }

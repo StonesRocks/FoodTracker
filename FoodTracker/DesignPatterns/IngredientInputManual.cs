@@ -11,41 +11,18 @@ namespace FoodTracker.DesignPatterns
 {
     public class IngredientInputManual : IIngredientInput
     {
-        // This implementation allows the user to manually input the barcode
+        // This Input method means the user manually inserts the information
+
         private IViewModel viewModel;
-        private string EAN13 = null;
-        Regex EAN13Regex = new Regex(@"^\d{13}$");
 
         public IngredientInputManual(IViewModel viewModel)
         {
             this.viewModel = viewModel;
         }
 
-        public IIngredient GetProduct()
+        public object GetInput(IIngredientFactory factory)
         {
-            // Get the decorators and use them as options for manual input
-
-            throw new NotImplementedException();
-        }
-
-        private void AddEAN13()
-        {
-            EAN13 = null;
-            while (EAN13 == null)
-            {
-                string barcode = viewModel.GetStringInput("Please input the 13 digit barcode. Enter to cancel");
-                if (barcode == "")
-                {
-                }
-                if (EAN13Regex.IsMatch(barcode))
-                {
-                    EAN13 = barcode;
-                }
-                else
-                {
-                    viewModel.DisplayMessage("Invalid barcode");
-                }
-            }
+            return viewModel.GetInput(factory.description);
         }
 
         public override string ToString()

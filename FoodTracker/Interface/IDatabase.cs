@@ -11,13 +11,20 @@ namespace FoodTracker.Interface
         // This is the interface that will be used to save and load the model to and from the database
         // Start with JSON and expand to mySQL
 
-        // Nullable parameters allows us to implement either a sophisticated database implemnentation to fetch specific data
-        // or a simpler implementation to fetch all data and filter it in the model
+        void Save();
 
-        List<IIngredient> LoadStorage();
-        void SaveStorage(List<IIngredient> storage);
+        // Storage manager
+        List<IIngredient> StorageSearch(string searchTerm);
+        void AddToStorage(IIngredient ingredient);
+        void RemoveFromStorage(IIngredient ingredient);
 
-        IIngredient GetIngredient(IIngredient ingredient);
-        void SaveIngredient(IIngredient ingredient);
+        // Ingredient manager
+        List<IIngredient> IngredientSearch(string searchTerm);
+        void VerifyUnique(IIngredient ingredient);
+        void AddIngredientToDatabase(IIngredient ingredient);
+        void RemoveIngredientFromDatabase(IIngredient ingredient);
+
+
+
     }
 }

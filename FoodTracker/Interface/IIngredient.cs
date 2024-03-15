@@ -13,7 +13,5 @@ namespace FoodTracker.Interface
         dynamic GetProperty(string key);
         bool AddProperty(string key, dynamic value);
         bool RemoveProperty(string key);
-
-
     }
 }

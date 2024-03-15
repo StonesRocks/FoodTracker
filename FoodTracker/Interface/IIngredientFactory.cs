@@ -9,10 +9,10 @@ namespace FoodTracker.Interface
     public interface IIngredientFactory
     {
         // This factory purpose is to move the Ingredient creation to a factory
+        string description { get; }
+        string name { get; }
 
-        List<string> GetOptions();
+        void AddInputMethod(IIngredientInput inputMethod);
         IIngredient BuildObject();
-        bool AddInputMethod(IIngredientInput input);
-        IIngredient UseInputMethod(int input);
     }
 }

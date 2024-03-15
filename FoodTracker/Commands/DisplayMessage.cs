@@ -27,7 +27,7 @@ namespace FoodTracker.Commands
         // Execute method to display the message
         public void Execute()
         {
-            Console.WriteLine(context + "\n");
+            Console.WriteLine(context);
         }
     }
 

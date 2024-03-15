@@ -12,7 +12,8 @@ namespace FoodTracker.Interface
 
         void DisplayMessage(string message);
 
-        string GetStringInput(string message);
+        string GetInput(string message);
+        int GetChoice(List<string> options);
         int GetChoiceInput(List<string> options);
     }
 }
