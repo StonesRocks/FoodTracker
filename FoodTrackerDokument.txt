@@ -1,0 +1,23 @@
+MVVM
+Jag tänkte först göra ett WPF program men tänkte att detta var ett bra tillfälle att använda MVVM pattern som tillåter oss att ändra till WPF senare ifall vi vill och därför valde jag att göra ett konsolprogram
+Detta tillåter mig att fokusera på logik eller modellen.
+
+Command
+Jag applicerade först command på min view class eftersom jag ville styra det därifrån men eftersom vi har ett konsolprogram så kan vi inte styra programmet genom ett GUI istället använder jag kommandonn för att visa upp våran UI. 
+Observer
+Eftersom min view behöver uppdatera sin kontext efter min model genom min viewmodel så utnyttjar jag observer som får kontexten innan min vm exekverar kommandot
+
+Singleton
+Min singleton är helt enkelt min json manager, tanken var att den använder en IDatabase interface vilket tillåter mig att senare byta ut den till en mySQL databas. För att simulera datakopplingen så hämtar jag hela databasen till min json manager och sedan "kontaktar" från vart jag än vill genom min singleton och får tillgång till CRUD
+
+AbstractFactory
+För att skapa en ingrediens så behöver vi en input metod och en grundläggande ingrediens, den grundläggande ingrediensen i detta fallet är baserat runt streckkoden dvs EAN-13 standard, Detta innebär att den fabriken jag valt att använda är EAN13 fabriken och sättet jag matar in informationen är manuellt.
+Tanken är då att vi egentligen kan importera fler ingredienser utifrån andra standarder osv detta hade då betytt att vi använder oss av en ny fabrik.
+Varje fabrik kan fortfarande hämta produkten på olika sätt jag har bara gjort det manuella sättet men i framtiden kan vi implementera en barcode scanner exempelvis eller machine learning image recognition.
+Poängen är att vi kan ha olika fabriker för olika standarder osv men varje konkret fabrik kan hämta användarinput på flera sätt också och därför behöver vi en abstrakt fabrik.
+
+Flyweight
+Vi har massa ingredienser i en databas som ingredient manager hanterar och när vi köper något kan vi inputta detta till våran storage vilket håller reda på produkter vi har hemma men det finns ingen anledning för våran storage att hålla hela produkter eftersom de redan finns i databasen. Därför använder jag flyweight som tillåter våran storage att endast spara produkt id men fortfarande visar upp hela produkter genom att hämta ingredient manager.
+
+Quicksort och Mergesort
+Programmet kan användas för båda privat personer och företag, storleken på våran storage kan antingen vara ett kylskåp eller hela mcdonalds och vi har därför olika sorteringsalgoritmer för att kunna hantera båda situationerna.

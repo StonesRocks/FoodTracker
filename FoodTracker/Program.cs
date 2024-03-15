@@ -29,9 +29,6 @@ namespace FoodTracker
         // Observer
             // The Commands are actually composite of command and observer because they use observer to change the context of the command
 
-
-
-
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, World!");
